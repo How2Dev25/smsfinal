@@ -51,7 +51,7 @@ class sectionAssignment {
 {
     global $connections;
 
-    $sql = "INSERT INTO section_tbl (sectionName, yearLevel, course, adviserID, schoolYear, semester)
+    $sql = "INSERT INTO section_tbl (sectionName, yearLevel, course, adviserID, schoolYear, semester, roomID)
             VALUES ('$sectionName', '$yearLevel', '$course', '$adviserID', '$schoolYear', '$semester', '$roomID')";
     $result = mysqli_query($connections, $sql);
 
@@ -129,7 +129,11 @@ public function deleteSection($sectionID){
 public function fetchSectionList(){
           global $connections;
 
-        $sql = "SELECT * FROM section_tbl s INNER JOIN users u ON s.adviserID = u.id";
+       $sql = "SELECT * 
+        FROM section_tbl s
+        INNER JOIN users u ON s.adviserID = u.id
+        INNER JOIN room_tbl r ON s.roomID = r.roomID";
+
         $result = mysqli_query($connections, $sql);
 
         $getsectionList = [];
@@ -532,32 +536,36 @@ class student {
         }
     }
 
-    public function modifyStudent($studentID, $studentuserID, $sectionID, $student_name, $gender){
-        global $connections;
+public function modifyStudent($studentID, $student_name, $gender){
+    global $connections;
 
-        $sql = "UPDATE section_list_tbl
-                SET studentuserID = '$studentuserID',
-                    sectionID = '$sectionID',
-                    student_name = '$student_name',
-                    gender = '$gender'
-                WHERE studentID = '$studentID'";
-        $result = mysqli_query($connections, $sql);
+    // Update gender in section_list_tbl
+    $sql1 = "UPDATE section_list_tbl 
+             SET gender = '$gender'
+             WHERE studentID = '$studentID'";
 
-        if ($result) {
-            echo "
-            <script>
+    // Update student name in users table
+    $sql2 = "UPDATE users 
+             SET username = '$student_name'
+             WHERE id = (SELECT studentuserID FROM section_list_tbl WHERE studentID = '$studentID')";
+
+    $result1 = mysqli_query($connections, $sql1);
+    $result2 = mysqli_query($connections, $sql2);
+
+    if ($result1 && $result2) {
+        echo "<script>
                 alert('Student updated successfully!');
                 window.location.href = '" . $_SERVER['HTTP_REFERER'] . "';
-            </script>";
-        } else {
-            $error = addslashes(mysqli_error($connections));
-            echo "
-            <script>
+              </script>";
+    } else {
+        $error = addslashes(mysqli_error($connections));
+        echo "<script>
                 alert('Error updating student: $error');
                 window.location.href = '" . $_SERVER['HTTP_REFERER'] . "';
-            </script>";
-        }
+              </script>";
     }
+}
+
 
     public function deleteStudent($studentID){
         global $connections;
@@ -584,7 +592,7 @@ class student {
  public function getSection($sectionID){
     global $connections;
 
-    $sql = "SELECT * FROM section_tbl WHERE sectionID = '$sectionID' LIMIT 1";
+    $sql = "SELECT * FROM section_tbl s INNER JOIN room_tbl r ON s.roomID = r.roomID WHERE sectionID = '$sectionID' LIMIT 1";
     $result = mysqli_query($connections, $sql);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -628,6 +636,8 @@ $sql = "
         s.course,
         s.schoolYear,
         s.semester,
+        sl.studentID as primarytableID,
+        sl.student_name as primaryName,
         a.username AS adviserName,
         u.id AS studentID,
         u.userid AS studentuserID,
@@ -635,11 +645,12 @@ $sql = "
         sl.gender
     FROM section_list_tbl sl
     INNER JOIN section_tbl s ON sl.sectionID = s.sectionID
-    INNER JOIN users u ON sl.studentuserID = u.id
-    INNER JOIN users a ON s.adviserID = a.id
+    LEFT JOIN users u ON sl.studentuserID = u.id   -- CHANGE TO LEFT JOIN
+    LEFT JOIN users a ON s.adviserID = a.id        -- Keep adviser join flexible too
     WHERE sl.sectionID = '$sectionID'
     ORDER BY u.username ASC
 ";
+
     $result = mysqli_query($connections, $sql);
     $sectionlist = [];
 

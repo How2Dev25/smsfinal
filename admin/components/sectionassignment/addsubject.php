@@ -179,7 +179,7 @@
     btn.addEventListener('click', () => {
         const subjectID = btn.dataset.id;
         Swal.fire({
-            title: 'Delete this section?',
+            title: 'Delete this subject?',
             text: "This action cannot be undone.",
             icon: 'warning',
             showCancelButton: true,

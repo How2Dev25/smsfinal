@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $schoolYear = $_POST['schoolYear'];
     $semester = $_POST['semester'];
     $sectionID = $_POST['sectionID'];
-
+    $roomID = $_POST['roomID'];
     $insertsection = new sectionAssignment();
     $insertsection->updateSection($sectionID,$sectionName, $yearLevel, $course, $adviserID, $schoolYear, $semester, $roomID);
 }

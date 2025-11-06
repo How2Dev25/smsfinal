@@ -339,7 +339,7 @@ document.querySelectorAll('.deleteBtnAssignment').forEach(btn => {
     btn.addEventListener('click', () => {
         const assignmentID = btn.dataset.id;
         Swal.fire({
-            title: 'Delete this section?',
+            title: 'Delete this Assignment?',
             text: "This action cannot be undone.",
             icon: 'warning',
             showCancelButton: true,

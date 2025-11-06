@@ -17,13 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // MODIFY STUDENT
     if (isset($_POST['modifyStudent'])) {
-        $studentID     = $_POST['studentID'];
-        $studentuserID = $_POST['studentuserID'] ?? null;
-        $sectionID     = $_POST['sectionID'];
-        $student_name  = $_POST['student_name'];
+        $studentID     = $_POST['primarytableID'];
+        $student_name  = $_POST['studentName'];
         $gender        = $_POST['gender'];
 
-        $student->modifyStudent($studentID, $studentuserID, $sectionID, $student_name, $gender);
+        $student->modifyStudent($studentID, $student_name, $gender);
     }
 
     // DELETE STUDENT
@@ -32,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if (isset($_GET['deleteStudent'])) {
-        $studentID = $_GET['studentID'];
+        $studentID = $_GET['deleteStudent'];
         $student->deleteStudent($studentID);
     }
 }

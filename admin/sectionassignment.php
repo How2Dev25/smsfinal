@@ -152,6 +152,15 @@ include_once('../controllers/sectionassignmentcontroller.php');
     <!-- 🧩 Tables / Modules Grid -->
     <!-- ========================================================= -->
 
+    <?php 
+    include_once('components/sectionassignment/studentlist.php')
+    
+    ?>
+
+
+
+
+
          <div class="bg-white rounded-xl shadow-md p-4">
             <?php include_once('components/sectionassignment/addsection.php') ?>
         </div>

@@ -30,6 +30,7 @@
                     <th class="px-4 py-3">Adviser</th>
                     <th class="px-4 py-3">School Year</th>
                     <th class="px-4 py-3">Semester</th>
+                    <th class="px-4 py-3">Room</th>
                     <th class="px-4 py-3 text-center">Actions</th>
                 </tr>
             </thead>
@@ -47,6 +48,7 @@
                     <td class="px-4 py-2"><?php echo htmlspecialchars($sections['username']) ?></td>
                     <td class="px-4 py-2"><?php echo htmlspecialchars($sections['schoolYear']) ?></td>
                     <td class="px-4 py-2"><?php echo htmlspecialchars($sections['semester']) ?></td>
+                     <td class="px-4 py-2"><?php echo htmlspecialchars($sections['roomName']) ?></td>
                     <td class="px-4 py-2 text-center space-x-3">
                           <button 
             class="text-blue-600 hover:text-blue-800 font-medium"
