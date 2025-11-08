@@ -105,11 +105,8 @@
                             <i class="fas fa-clipboard-list mr-3 w-5 text-center"></i>
                             Teacher Schedule Mapping
                         </a>
-                        <a href="../cons/conflict.html" class="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
-                            <i class="fas fa-book mr-3 w-5 text-center"></i>
-                            Conflict Checker
-                        </a>
-                        <a href="../cons/examtg.html" class="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                        
+                        <a href="examtimetable.php" class="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
                             <i class="fas fa-certificate mr-3 w-5 text-center"></i>
                             Exam Timetable Generator
                         </a>
