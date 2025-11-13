@@ -91,4 +91,29 @@ class Roomcontroller{
 
         return $roomList;
     }
+
+    public function fetchRoomCounts() {
+    global $connections;
+
+    $sql = "SELECT 
+                COUNT(*) AS totalRooms,
+                SUM(CASE WHEN roomStatus = 'Available' THEN 1 ELSE 0 END) AS availableRooms,
+                SUM(CASE WHEN roomStatus = 'Occupied' THEN 1 ELSE 0 END) AS occupiedRooms,
+                SUM(CASE WHEN roomStatus = 'Maintenance' THEN 1 ELSE 0 END) AS underMaintenance
+            FROM room_tbl";
+
+    $result = mysqli_query($connections, $sql);
+
+    if($result && mysqli_num_rows($result) > 0){
+        return mysqli_fetch_assoc($result); // returns an associative array with counts
+    } else {
+        return [
+            'totalRooms' => 0,
+            'availableRooms' => 0,
+            'occupiedRooms' => 0,
+            'underMaintenance' => 0
+        ];
+    }
+}
+
 }

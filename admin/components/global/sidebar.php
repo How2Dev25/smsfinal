@@ -227,8 +227,8 @@
             <div class="mb-4 animate-slide-in">
                 <p class="sidebar-text section-header text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 mb-2">Main</p>
                 <a href="dashboard.php" class="menu-item flex items-center px-3 py-2.5 bg-dark-blue rounded-lg text-white font-medium shadow-sm hover:shadow-md relative group">
-                    <i class="fas fa-tachometer-alt mr-3 text-base w-5 text-center"></i>
-                    <span class="sidebar-text text-sm">Dashboard</span>
+                    <i class="fas fa-tachometer-alt mr-3  w-5 text-center text-white"></i>
+                    <span class="sidebar-text text-sm text-white">Dashboard</span>
                     <div class="tooltip absolute left-full ml-2 px-2.5 py-1.5 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap shadow-lg">
                         Dashboard
                     </div>
@@ -285,7 +285,7 @@
                     </button>
                 </div>
                 <div id="tools-section" class="space-y-1">
-                    <a href="../cons/specialss.html" class="menu-item flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg group relative">
+                    <a href="specialsched.php" class="menu-item flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg group relative">
                         <i class="fas fa-chalkboard-teacher mr-3 w-5 text-center text-sm"></i>
                         <span class="sidebar-text text-sm">Special Scheduler</span>
                         <div class="tooltip absolute left-full ml-2 px-2.5 py-1.5 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap shadow-lg">

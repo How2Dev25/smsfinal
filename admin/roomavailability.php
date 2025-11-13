@@ -16,11 +16,72 @@ include('../controllers/roomcontroller.php');
 <body class="bg-white font-sans">
     <section class="flex h-screen overflow-hidden">
       <?php include_once('components/global/sidebar.php') ?>
-
+      
         <!-- Main Content -->
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-white content-transition lg:ml-72" id="main-content">
+
+                  
               <div class="flex-1 overflow-auto p-5 space-y-10">
 
+               <div class="mb-8 bg-gradient-to-r from-blue-50 to-white rounded-xl shadow-lg p-6 sm:p-8 border border-blue-100 mt-5">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">Room Availability Checker</h1>
+                 </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+
+        <?php 
+        $roomCounts = new Roomcontroller();
+        $roomCounts = $roomCounts->fetchRoomCounts();
+        
+        ?>
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-500">Total Rooms</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1"><?= $roomCounts['totalRooms'] ?></p>
+            </div>
+            <div class="p-3 bg-blue-100 rounded-full">
+                <i class="fas fa-door-open text-blue-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-500">Available Rooms</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1"><?= $roomCounts['availableRooms'] ?></p>
+            </div>
+            <div class="p-3 bg-green-100 rounded-full">
+                <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-red-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-500">Occupied Rooms</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1"><?= $roomCounts['occupiedRooms'] ?></p>
+            </div>
+            <div class="p-3 bg-red-100 rounded-full">
+                <i class="fas fa-users text-red-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-500">Under Maintenance</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1"><?= $roomCounts['underMaintenance'] ?></p>
+            </div>
+            <div class="p-3 bg-yellow-100 rounded-full">
+                <i class="fas fa-tools text-yellow-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+        </div>
   
 
     <!-- ===================================================== -->

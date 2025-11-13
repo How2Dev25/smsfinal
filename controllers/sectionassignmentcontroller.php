@@ -1018,5 +1018,42 @@ public function getAllAssignments() {
     return $assignments;
 }
 
+
 }
+
+class counts{
+       public function getAllCounts() {
+        global $connections;
+
+        // Count all students
+        $sqlStudents = "SELECT COUNT(*) as total FROM users WHERE role = 'Student'";
+        $resultStudents = mysqli_query($connections, $sqlStudents);
+        $totalStudents = mysqli_fetch_assoc($resultStudents)['total'];
+
+        // Count all teachers
+        $sqlTeachers = "SELECT COUNT(*) as total FROM users WHERE role = 'Teacher'";
+        $resultTeachers = mysqli_query($connections, $sqlTeachers);
+        $totalTeachers = mysqli_fetch_assoc($resultTeachers)['total'];
+
+        // Count all subjects
+        $sqlSubjects = "SELECT COUNT(*) as total FROM subject_tbl";
+        $resultSubjects = mysqli_query($connections, $sqlSubjects);
+        $totalSubjects = mysqli_fetch_assoc($resultSubjects)['total'];
+
+        // Count all sections
+        $sqlSections = "SELECT COUNT(*) as total FROM section_tbl";
+        $resultSections = mysqli_query($connections, $sqlSections);
+        $totalSections = mysqli_fetch_assoc($resultSections)['total'];
+
+        // Return all counts as an array
+        return [
+            'students' => $totalStudents,
+            'teachers' => $totalTeachers,
+            'subjects' => $totalSubjects,
+            'sections' => $totalSections
+        ];
+    }
+}
+
+
 

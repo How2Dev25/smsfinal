@@ -274,6 +274,44 @@ class ExamTimetable {
     }
 }
 
+public function fetchtimetableCounts() {
+    // Fetch all rooms
+    $rooms = $this->fetchRoom();
+    $totalRooms = count($rooms);
+    $availableRooms = count(array_filter($rooms, fn($r) => $r['roomStatus'] === 'Available'));
+    $occupiedRooms = count(array_filter($rooms, fn($r) => $r['roomStatus'] === 'Occupied'));
+    $underMaintenance = count(array_filter($rooms, fn($r) => $r['roomStatus'] === 'Maintenance'));
+
+    // Fetch all exams
+    $examList = $this->fetch();
+    $totalExams = count($examList);
+
+    // Upcoming exams (from today onward)
+    $today = date('Y-m-d');
+    $upcomingExams = count(array_filter($examList, fn($exam) => $exam['examDate'] >= $today));
+
+    // Rooms used in exams
+    $examRoomIDs = array_map(fn($exam) => $exam['roomID'], $examList);
+    $uniqueExamRooms = array_unique($examRoomIDs);
+    $availableExamRooms = $totalRooms - count($uniqueExamRooms); // optional, just rooms not used in any exam
+
+    // Assigned proctors
+    $invigilatorIDs = array_filter(array_map(fn($exam) => $exam['invigilatorID'], $examList));
+    $assignedProctors = count(array_unique($invigilatorIDs));
+
+    return [
+        'totalRooms' => $totalRooms,
+        'availableRooms' => $availableRooms,
+        'occupiedRooms' => $occupiedRooms,
+        'underMaintenance' => $underMaintenance,
+        'totalExams' => $totalExams,
+        'upcomingExams' => $upcomingExams,
+        'availableExamRooms' => $availableExamRooms,
+        'assignedProctors' => $assignedProctors
+    ];
+}
+
+
 
 }
 
