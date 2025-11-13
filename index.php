@@ -123,7 +123,7 @@
       <!-- CTA Button (Desktop) -->
       <div class="hidden lg:block">
         <a href="login.php" class="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center gap-2">
-          <span>Get Started</span>
+          <span>Sign In</span>
           <i class="fas fa-arrow-right text-sm"></i>
         </a>
       </div>
@@ -189,12 +189,7 @@
           </a>
         </div>
       </div>
-      <div class="relative fade-in-up hidden lg:block">
-        <div class="relative z-10">
-          <img src="img/hero.png" alt="Students" class="rounded-2xl shadow-2xl float-animation">
-        </div>
-        <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full opacity-20 blur-3xl"></div>
-      </div>
+    
     </div>
   </div>
 </section>
@@ -325,110 +320,7 @@
   </div>
 </section>
 
-<!-- Benefits Section -->
-<section id="benefits" class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Why Choose Us?</h2>
-      <p class="text-xl text-gray-600">Experience the benefits of modern student management</p>
-    </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
-        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6">
-          <i class="fas fa-clock text-3xl text-white"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Save Time</h3>
-        <p class="text-gray-600">Automate repetitive tasks and focus on what matters most - educating students.</p>
-      </div>
-
-      <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
-        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
-          <i class="fas fa-shield-alt text-3xl text-white"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Secure Data</h3>
-        <p class="text-gray-600">Enterprise-level security to protect sensitive student and faculty information.</p>
-      </div>
-
-      <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
-        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
-          <i class="fas fa-mobile-alt text-3xl text-white"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Access Anywhere</h3>
-        <p class="text-gray-600">Cloud-based platform accessible from any device, anytime, anywhere.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonials Section -->
-<section id="testimonials" class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">What People Say</h2>
-      <p class="text-xl text-gray-600">Hear from our satisfied users</p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Testimonial 1 -->
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-100">
-        <div class="flex items-center mb-4">
-          <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=4f46e5&color=fff" alt="User" class="w-14 h-14 rounded-full mr-4">
-          <div>
-            <h4 class="font-bold text-gray-900">Maria Santos</h4>
-            <p class="text-sm text-gray-600">School Principal</p>
-          </div>
-        </div>
-        <div class="mb-4">
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-        </div>
-        <p class="text-gray-700 italic">"This system has transformed how we manage our school. It's intuitive, powerful, and saves us countless hours every week."</p>
-      </div>
-
-      <!-- Testimonial 2 -->
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-100">
-        <div class="flex items-center mb-4">
-          <img src="https://ui-avatars.com/api/?name=Juan+Dela+Cruz&background=4f46e5&color=fff" alt="User" class="w-14 h-14 rounded-full mr-4">
-          <div>
-            <h4 class="font-bold text-gray-900">Juan Dela Cruz</h4>
-            <p class="text-sm text-gray-600">Teacher</p>
-          </div>
-        </div>
-        <div class="mb-4">
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-        </div>
-        <p class="text-gray-700 italic">"Managing grades and attendance has never been easier. The interface is clean and everything is where you'd expect it to be."</p>
-      </div>
-
-      <!-- Testimonial 3 -->
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-100">
-        <div class="flex items-center mb-4">
-          <img src="https://ui-avatars.com/api/?name=Anna+Reyes&background=4f46e5&color=fff" alt="User" class="w-14 h-14 rounded-full mr-4">
-          <div>
-            <h4 class="font-bold text-gray-900">Anna Reyes</h4>
-            <p class="text-sm text-gray-600">Parent</p>
-          </div>
-        </div>
-        <div class="mb-4">
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-          <i class="fas fa-star text-yellow-400"></i>
-        </div>
-        <p class="text-gray-700 italic">"As a parent, I love being able to track my child's progress in real-time. The notifications keep me informed about everything."</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- About Us Section -->
 <section id="about-us" class="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
@@ -446,11 +338,7 @@
           in managing student information. That's why we've created a comprehensive platform that adapts to your needs, 
           not the other way around.
         </p>
-        <div class="mt-8 flex gap-4">
-          <a href="login.php" class="px-8 py-4 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
-            Start Free Trial
-          </a>
-        </div>
+       
       </div>
       <div class="relative">
         <img src="img/studs.jpg" alt="About Us" class="rounded-2xl shadow-2xl w-full">
@@ -540,20 +428,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Transform Your School?</h2>
-    <p class="text-xl text-white/90 mb-8">Join thousands of schools already using our platform</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="login.php" class="px-8 py-4 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
-        Get Started Now <i class="fas fa-arrow-right ml-2"></i>
-      </a>
-      <a href="#contact" class="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-all">
-        Schedule a Demo
-      </a>
-    </div>
-  </div>
-</section>
+
 
 <!-- Footer Section -->
 <footer class="bg-gray-900 text-white py-12">
@@ -608,7 +483,7 @@
     </div>
 
     <div class="border-t border-gray-800 pt-8 text-center">
-      <p class="text-gray-400">&copy; 2025 School Management System. All rights reserved. Made with <i class="fas fa-heart text-red-500"></i> for education.</p>
+      <p class="text-gray-400">&copy; 2025 School Management System. All rights reserved.</p>
     </div>
   </div>
 </footer>
