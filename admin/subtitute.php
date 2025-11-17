@@ -4,7 +4,7 @@ include('components/global/auth.php');
 
 // module and controllers
 
-include_once('../controllers/sectionassignmentcontroller.php');
+include_once('../controllers/subtituteController.php');
 
 ?>
 
@@ -59,158 +59,336 @@ include_once('../controllers/sectionassignmentcontroller.php');
 
         <!-- Main Content -->
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-white content-transition lg:ml-72" id="main-content">
-            <section class="min-h-screen p-4 sm:p-6 lg:p-8 transition-all duration-300">
-                <!--  -->
- <!-- Main Content Wrapper -->
-<div class="flex-1 overflow-auto p-6 max-w-7xl mx-auto space-y-6">
+           <section class="min-h-screen p-4 sm:p-6 lg:p-8 transition-all duration-300">
+    <div class="flex-1 overflow-auto p-6 max-w-7xl mx-auto space-y-6">
 
-    <!-- Header -->
-    <div class="bg-white border-b px-6 py-4 flex items-center justify-between">
-        <h1 class="text-xl font-bold text-gray-800">Dashboard Overview</h1>
+        <!-- Page Title -->
+        <div class="mb-8 bg-gradient-to-r from-blue-50 to-white rounded-xl shadow-lg p-6 sm:p-8 border border-blue-100">
+            <h1 class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">Substitute Tracker</h1>
+            <p class="text-gray-600">Track teacher substitutes and their assignments.</p>
+        </div>
+
+        <!-- Dashboard Cards -->
+       <?php 
+$subController = new SubtituteController();
+$summary = $subController->getSubstituteSummary();
+?>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- Total Substitutes -->
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-500">Total Substitutes</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1"><?= $summary['total'] ?></p>
+            </div>
+            <div class="p-3 bg-blue-100 rounded-full">
+                <i class="fas fa-user-clock text-blue-500 text-xl"></i>
+            </div>
+        </div>
     </div>
 
-    <!-- Main Section -->
-    <div class="p-6">
-        <div class="flex items-center justify-between mb-6">
+    <!-- Morning Substitutes -->
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+        <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-2xl font-bold text-gray-800">Substitute Assignment Tracker</h2>
-                <p class="text-xs text-gray-500 mt-1">Dashboard > Scheduling > Substitute Assignments</p>
+                <p class="text-sm font-medium text-gray-500">Morning</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1"><?= $summary['morning'] ?></p>
+            </div>
+            <div class="p-3 bg-green-100 rounded-full">
+                <i class="fas fa-sun text-green-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Afternoon Substitutes -->
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-500">Afternoon</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1"><?= $summary['afternoon'] ?></p>
+            </div>
+            <div class="p-3 bg-yellow-100 rounded-full">
+                <i class="fas fa-cloud-sun text-yellow-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Cards: Pending, Assigned, Completed -->
+
+
+</div>
+
+ <div class="grid grid-cols-3 gap-2">
+        <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-yellow-500">
+            <p class="text-sm font-medium text-gray-500">Pending</p>
+            <p class="text-lg font-bold text-gray-800 mt-1"><?= $summary['pending'] ?></p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-blue-500">
+            <p class="text-sm font-medium text-gray-500">Assigned</p>
+            <p class="text-lg font-bold text-gray-800 mt-1"><?= $summary['assigned'] ?></p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-green-500">
+            <p class="text-sm font-medium text-gray-500">Completed</p>
+            <p class="text-lg font-bold text-gray-800 mt-1"><?= $summary['completed'] ?></p>
+        </div>
+    </div>
+
+
+
+        <!-- Substitute Table -->
+        <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b">
+                <h2 class="text-xl font-semibold text-gray-800">Substitute List</h2>
+                <button 
+                    data-modal-target="createSubModal" 
+                    data-modal-toggle="createSubModal"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
+                    + Add Substitute
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full border-collapse">
+                    <thead class="bg-blue-600 text-white uppercase text-sm">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Teacher Name</th>
+                            <th class="px-6 py-3 text-left">Date</th>
+                            <th class="px-6 py-3 text-left">Period</th>
+                            <th class="px-6 py-3 text-left">Subject</th>
+                            <th class="px-6 py-3 text-left">Assigned Teacher</th>
+                            <th class="px-6 py-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                  <tbody class="divide-y divide-gray-200 text-gray-800">
+
+<?php 
+    $subs = new SubtituteController();
+    $subs = $subs->getAllAssignedAssignments();
+?>
+
+<?php foreach ($subs as $sub): ?>
+
+    <?php  
+        // AM or PM
+        $period = (strtotime($sub['startTime']) < strtotime("12:00")) ? "AM" : "PM";
+
+        // Format time
+        $timeFormatted = date("h:i A", strtotime($sub['startTime'])) . 
+                         " - " . 
+                         date("h:i A", strtotime($sub['endTime']));
+
+        // Day
+        $day = $sub['day']; 
+    ?>
+
+    <tr>
+        <!-- Original Teacher -->
+        <td class="px-6 py-3 font-medium">
+            <?= htmlspecialchars($sub['originalTeacherName']) ?>
+        </td>
+
+        <!-- Date / Day -->
+        <td class="px-6 py-3">
+            <?= htmlspecialchars($day) ?>
+        </td>
+
+        <!-- AM / PM -->
+        <td class="px-6 py-3">
+            <?= $period ?>
+        </td>
+
+        <!-- Subject + Section + Room -->
+        <td class="px-6 py-3">
+            <div class="font-semibold"><?= htmlspecialchars($sub['subjectName']) ?></div>
+            <div class="text-sm text-gray-500">
+                <?= htmlspecialchars($sub['sectionName']) ?> (<?= htmlspecialchars($sub['yearLevel']) ?>) <br>
+                Room: <?= htmlspecialchars($sub['roomName']) ?>
+            </div>
+        </td>
+
+        <!-- Substitute Teacher + Status + Time -->
+        <td class="px-6 py-3 text-sm">
+            <div class="font-medium text-blue-600">
+                Substitute: <?= htmlspecialchars($sub['substituteTeacherName']) ?>
+            </div>
+
+            <div class="text-gray-700">Time: <?= $timeFormatted ?></div>
+
+            <div class="text-gray-600">
+                Status: 
+              <?php
+// Map status values to labels and colors
+$statusLabels = [
+    'pending'   => ['label' => 'Pending', 'color' => 'text-yellow-500'],
+    'assigned'  => ['label' => 'Assigned', 'color' => 'text-blue-600'],
+    'completed' => ['label' => 'Completed', 'color' => 'text-green-600'],
+    'inactive'  => ['label' => 'Inactive', 'color' => 'text-red-600'], // optional
+];
+
+// Fallback in case status is not in the mapping
+$status = $sub['status'];
+$label = isset($statusLabels[$status]) ? $statusLabels[$status]['label'] : ucfirst($status);
+$colorClass = isset($statusLabels[$status]) ? $statusLabels[$status]['color'] : 'text-gray-600';
+?>
+
+<span class="font-semibold <?= $colorClass ?>">
+    <?= $label ?>
+</span>
+            </div>
+        </td>
+
+        <!-- Actions -->
+        <td class="px-6 py-3 text-center space-x-2">
+            <button 
+                data-modal-target="editSubModal_<?= $sub['subAssignmentID'] ?>" 
+                data-modal-toggle="editSubModal_<?= $sub['subAssignmentID'] ?>"
+                class="text-blue-600 font-medium">
+                Edit
+            </button>
+
+            <button 
+                data-id="<?= $sub['subAssignmentID'] ?>"
+                class="text-red-600 font-medium deleteSubBtn">
+                Delete
+            </button>
+        </td>
+    </tr>
+
+<?php endforeach ?>
+
+</tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Create Substitute Modal -->
+        <div id="createSubModal" tabindex="-1" aria-hidden="true"
+            class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6">
+                <h3 class="text-lg font-semibold mb-4">Add Substitute</h3>
+
+                <form action="../routes/subtituteroute.php" method="POST" class="space-y-4">
+                    <div>
+                        <?php 
+                          $schedules = new SubtituteController();
+                          $schedules = $schedules->getAllAssignments();  
+                        
+                        ?>
+                        <label class="block font-medium text-sm mb-1">Schedule</label>
+                        <select class="w-full p-2 border rounded-lg" name="sectionAssignmentID" id="">
+                          <?php foreach ($schedules as $sched): ?>
+                                    <option value="<?= $sched['assignmentID'] ?>">
+                                        <?= $sched['sectionName'] ?> -
+                                        <?= $sched['yearLevel'] ?> -
+                                        <?= $sched['roomName'] ?> -
+                                        <?= $sched['day'] ?> -
+                                        <?= date("g:i A", strtotime($sched['startTime'])) ?> to 
+                                        <?= date("g:i A", strtotime($sched['endTime'])) ?> -
+                                        <?= $sched['username'] ?>
+                                    </option>
+                                <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div>
+                        <?php 
+                            $teacher = new SubtituteController();
+                            $teacher = $teacher->getTeacherFromUsers();
+                        ?>
+                        <label class="block font-medium text-sm mb-1">Subtitute Teacher</label>
+                        <select name="substituteTeacherID" class="w-full p-2 border rounded-lg">
+                            <?php foreach ($teacher as $teachers): ?>
+                            <option value="<?= $teachers['id'] ?>"><?= $teachers['username'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                   
+                    <div class="flex justify-end gap-2 mt-4">
+                        <button data-modal-hide = "createSubModal" type="button" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+                            Cancel
+                        </button>
+                        <button name="createSubtitute" type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <?php foreach($subs as $sub): ?>
+                <div id="editSubModal_<?= $sub['subAssignmentID'] ?>" tabindex="-1" aria-hidden="true"
+    class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6">
+        <h3 class="text-lg font-semibold mb-4">Edit Substitute</h3>
+
+        <form action="../routes/subtituteroute.php" method="POST" class="space-y-4">
+            <!-- Hidden ID -->
+            <input type="hidden" name="subAssignmentID" value="<?= $sub['subAssignmentID'] ?>">
+
+            <!-- Select Schedule -->
+            <div>
+                <label class="block font-medium text-sm mb-1">Schedule</label>
+                <select class="w-full p-2 border rounded-lg" name="sectionAssignmentID">
+                    <?php 
+                        $schedules = new SubtituteController();
+                        $schedules = $schedules->getAllAssignments();
+                    ?>
+                    <?php foreach ($schedules as $sched): ?>
+                        <option value="<?= $sched['assignmentID'] ?>" 
+                            <?= $sched['assignmentID'] == $sub['sectionAssignmentID'] ? 'selected' : '' ?>>
+                            <?= $sched['sectionName'] ?> - <?= $sched['yearLevel'] ?> - <?= $sched['roomName'] ?> -
+                            <?= date("g:i A", strtotime($sched['startTime'])) ?> to <?= date("g:i A", strtotime($sched['endTime'])) ?> -
+                            <?= $sched['username'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Select Substitute Teacher -->
+            <div>
+                <label class="block font-medium text-sm mb-1">Substitute Teacher</label>
+                <select name="substituteTeacherID" class="w-full p-2 border rounded-lg">
+                    <?php 
+                        $teachers = new SubtituteController();
+                        $teachers = $teachers->getTeacherFromUsers();
+                    ?>
+                    <?php foreach ($teachers as $teacher): ?>
+                        <option value="<?= $teacher['id'] ?>" 
+                            <?= $teacher['id'] == $sub['substituteTeacherID'] ? 'selected' : '' ?>>
+                            <?= $teacher['username'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Status -->
+            <div>
+                <label class="block font-medium text-sm mb-1">Status</label>
+                <select name="status" class="w-full p-2 border rounded-lg">
+                    <option value="Pending" <?= $sub['status'] == 'Pending' ? 'selected' : '' ?>>Pending</option>
+                    <option value="Assigned" <?= $sub['status'] == 'Assigned' ? 'selected' : '' ?>>Assigned</option>
+                     <option value="Completed" <?= $sub['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
+                </select>
             </div>
 
             <!-- Buttons -->
-            <div class="flex gap-4">
-                <!-- Add Request -->
-                <button data-modal-target="addRequestModal" data-modal-toggle="addRequestModal"
-                    class="bg-emerald-600 text-white px-6 py-2 rounded font-semibold hover:bg-emerald-700">
-                    Add Request
-                </button>
-
-                <!-- Assign Substitute -->
-                <button data-modal-target="assignModal" data-modal-toggle="assignModal"
-                    class="bg-indigo-600 text-white px-6 py-2 rounded font-semibold hover:bg-indigo-700">
-                    Assign Substitute
-                </button>
-            </div>
-        </div>
-
-        <!-- Absence Requests Table -->
-        <div class="bg-white rounded-lg shadow p-4 mb-6">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Absence Requests / Vacancies</h3>
-
-            <div class="overflow-x-auto">
-                <table class="min-w-full text-sm">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-2">Date</th>
-                            <th class="px-4 py-2">Time</th>
-                            <th class="px-4 py-2">Subject</th>
-                            <th class="px-4 py-2">Original Teacher</th>
-                            <th class="px-4 py-2">Section</th>
-                            <th class="px-4 py-2">Status</th>
-                            <th class="px-4 py-2">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">Aug 20, 2025</td>
-                            <td class="px-4 py-2">9:00–10:30 AM</td>
-                            <td class="px-4 py-2">Math 101</td>
-                            <td class="px-4 py-2">Mr. Cruz</td>
-                            <td class="px-4 py-2">Grade 10 – A</td>
-                            <td class="px-4 py-2"><span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span></td>
-                            <td class="px-4 py-2"><button data-modal-toggle="assignModal" class="bg-green-500 text-white px-2 py-1 rounded text-xs">Assign</button></td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-2">Aug 20, 2025</td>
-                            <td class="px-4 py-2">1:00–2:30 PM</td>
-                            <td class="px-4 py-2">English 2</td>
-                            <td class="px-4 py-2">Ms. Reyes</td>
-                            <td class="px-4 py-2">Grade 11 – B</td>
-                            <td class="px-4 py-2"><span class="bg-green-200 text-green-800 px-2 py-1 rounded text-xs">Assigned</span></td>
-                            <td class="px-4 py-2"><button class="bg-blue-500 text-white px-2 py-1 rounded text-xs">View</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Assignment Logs -->
-        <div class="bg-white rounded-lg shadow p-4">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Assignment Logs</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full text-sm">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-2">Date</th>
-                            <th class="px-4 py-2">Time</th>
-                            <th class="px-4 py-2">Subject</th>
-                            <th class="px-4 py-2">Section</th>
-                            <th class="px-4 py-2">Substitute</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="px-4 py-2">Aug 18, 2025</td>
-                            <td class="px-4 py-2">1:00–2:30 PM</td>
-                            <td class="px-4 py-2">Science 1</td>
-                            <td class="px-4 py-2">Grade 9 – C</td>
-                            <td class="px-4 py-2">Mr. Santos</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- modal -->
-<div id="addRequestModal" tabindex="-1" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-40">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-        <h3 class="text-lg font-semibold mb-4 text-gray-800">Add Absence Request</h3>
-
-        <form>
-            <label class="block mb-2 text-sm">Teacher</label>
-            <input type="text" class="w-full border rounded px-3 py-2 mb-3">
-
-            <label class="block mb-2 text-sm">Subject</label>
-            <input type="text" class="w-full border rounded px-3 py-2 mb-3">
-
-            <label class="block mb-2 text-sm">Date</label>
-            <input type="date" class="w-full border rounded px-3 py-2 mb-3">
-
-            <label class="block mb-2 text-sm">Reason</label>
-            <textarea class="w-full border rounded px-3 py-2 mb-4"></textarea>
-
-            <div class="flex justify-end gap-2">
-                <button data-modal-hide="addRequestModal" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-                <button class="px-4 py-2 bg-emerald-600 text-white rounded">Submit</button>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" data-modal-hide="editSubModal_<?= $sub['subAssignmentID'] ?>" 
+                    class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Cancel</button>
+                <button name="modifySubtitute" type="submit" 
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Changes</button>
             </div>
         </form>
     </div>
 </div>
 
-
-
-<div id="assignModal" tabindex="-1" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-40">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
-
-        <h3 class="text-lg font-semibold mb-4 text-gray-800">Assign Substitute Teacher</h3>
-
-        <label class="block mb-2 text-sm">Select Substitute</label>
-        <select class="w-full border rounded px-3 py-2 mb-4">
-            <option>Mr. Santos (Math)</option>
-            <option>Ms. Dela Cruz (English)</option>
-        </select>
-
-        <div class="flex justify-end gap-2 mt-4">
-            <button data-modal-hide="assignModal" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-            <button class="px-4 py-2 bg-indigo-600 text-white rounded">Assign</button>
-        </div>
+        <?php endforeach ?>   
 
     </div>
-</div>
-            </section>
+</section>
+
         </main>
     </section>
 

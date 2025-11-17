@@ -300,7 +300,7 @@
                         </div>
                     </a>
                    
-                    <a href="../cons/timeblock.html" class="menu-item flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg group relative">
+                    <a href="timeblock.php" class="menu-item flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg group relative">
                         <i class="fas fa-clock mr-3 w-5 text-center text-sm"></i>
                         <span class="sidebar-text text-sm">Time Blocks</span>
                         <div class="tooltip absolute left-full ml-2 px-2.5 py-1.5 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap shadow-lg">
