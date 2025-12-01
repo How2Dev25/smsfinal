@@ -171,7 +171,7 @@ $totalTeacherSections = count(array_unique(array_column($teacherSubjects, 'secti
 
     <!-- VIEW SECTION BUTTON -->
     <div class="mt-5">
-        <a href="this_section.php?section=<?= $subj['sectionID'] ?>"
+        <a href="viewstudent.php?assignmentID=<?= $subj['assignmentID'] ?>"
             class="w-full inline-block text-center bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow hover:bg-blue-700 hover:shadow-lg transition">
             View Section
         </a>

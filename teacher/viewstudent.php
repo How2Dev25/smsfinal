@@ -4,7 +4,7 @@ $id = include('components/global/auth.php'); // now $id is defined
 include_once('../controllers/teacherController.php');
 
 
-if(isset($_GET['$assignmentID'])){
+if(isset($_GET['assignmentID'])){
     $assignmentID = $_GET['assignmentID'];
 }
 else{
