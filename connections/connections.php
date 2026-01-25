@@ -1,6 +1,6 @@
 <?php
 try {
-    $host = 'localhost';
+   $host = 'localhost';
     $root = 'root';
     $password = '';
     $database = 'sms';

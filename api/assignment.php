@@ -7,7 +7,7 @@ include "../connections/connections.php"; // adjust path
 $sql = "SELECT 
     sa.assignmentID,
     sa.day,
-    sa.startTime,
+    sa.startTime, 
     sa.endTime,
 
     u.id AS teacherID,
